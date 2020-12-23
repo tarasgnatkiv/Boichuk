@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import Layout from "./hoc/Layout/Layout";
+import { Route, Switch, Redirect } from "react-router-dom";
+import Login from "./containers/Login/Login";
+import Auth from "./containers/Auth/Auth";
+import Home from "./containers/Home/Home";
+import { connect } from "react-redux";
+class App extends Component {
+  render() {
+    let routes = null;
+    if (this.props.token) {
+      console.log("hear")
+      routes = (
+        <Switch> 
+          <Route path="/home" component={Home} />
+          <Redirect to="/home" />
+        </Switch>
+      );
+    } else {
+      routes = (
+        <Switch>
+          <Route path="/auth" component={Auth} />
+          <Route path="/login" component={Login} />
+          <Redirect to="/login" />
+        </Switch>
+      );
+    }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return <Layout>{routes}</Layout>;
+  }
 }
-
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    token: state.token,
+    userId: state.userId,
+    error: state.error,
+    redirect: state.redirect,
+    loading: state.loading,
+  };
+};
+export default connect(mapStateToProps)(App);

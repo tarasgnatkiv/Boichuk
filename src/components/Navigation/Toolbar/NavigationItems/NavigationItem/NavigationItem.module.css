@@ -1,0 +1,26 @@
+.NavigationItem {
+    width: auto;
+    display:flex;
+    height: 100%;
+    align-items: center;
+    text-align: center;
+}
+
+.NavigationItem a {
+    height: 100%;
+    padding: 16px 10px;
+    text-decoration: none;
+    color: #868080;
+    font-size: 20px;
+    font-family: 'Varela Round', sans-serif;
+    width: 100%;
+}
+
+.NavigationItem a:hover,
+.NavigationItem a:active,
+.NavigationItem a.active {
+    color: #40A4C8;
+    background-color: #DFDFDF;
+
+    
+}

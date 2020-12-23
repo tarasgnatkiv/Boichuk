@@ -1,0 +1,18 @@
+.Button {
+  margin-top:10px;
+    width: 50%;
+    background-color: #393737;
+    border: 0px;
+    border-radius: 5px;
+    color:#d6d6d6;
+    font-size:20px;
+    padding:5px;
+    margin-left:auto;
+    margin-right: auto;
+    transition : 0.5s;
+    font-family: 'Dancing Script', cursive;
+}
+.Button:hover {
+    transform: scale(1.1);
+    cursor: pointer
+}
