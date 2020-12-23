@@ -4,17 +4,31 @@ import Layout from "./hoc/Layout/Layout";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Login from "./containers/Login/Login";
 import Auth from "./containers/Auth/Auth";
-import Home from "./containers/Home/Home";
+import About from "./components/About/About";
+import Logout from "./containers/Logout/Logout";
+import Works from "./containers/Works/Works";
+import CreateWork from "./containers/Works/CreateWork/CreateWork";
+import axios from 'axios'
 import { connect } from "react-redux";
 class App extends Component {
+  componentDidMount() {
+    axios
+      .get("https://www.uuidgenerator.net/api/version1")
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => console.log(error));
+  }
   render() {
     let routes = null;
     if (this.props.token) {
-      console.log("hear")
       routes = (
-        <Switch> 
-          <Route path="/home" component={Home} />
-          <Redirect to="/home" />
+        <Switch>
+          <Route path="/createNewJob" component={CreateWork} />
+          <Route path="/myWorks" component={Works} />
+          <Route path="/logout" component={Logout} />
+          <Route path="/about" component={About} />
+          <Redirect to="/about" />
         </Switch>
       );
     } else {
@@ -32,11 +46,11 @@ class App extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    token: state.token,
-    userId: state.userId,
-    error: state.error,
-    redirect: state.redirect,
-    loading: state.loading,
+    token: state.auth.token,
+    userId: state.auth.userId,
+    error: state.auth.error,
+    redirect: state.auth.redirect,
+    loading: state.auth.loading,
   };
 };
 export default connect(mapStateToProps)(App);

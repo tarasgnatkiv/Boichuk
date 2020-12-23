@@ -165,11 +165,11 @@ class Login extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    token: state.token,
-    userId: state.userId,
-    error: state.error,
-    redirect: state.redirect,
-    loading: state.loading,
+    token: state.auth.token,
+    userId: state.auth.userId,
+    error: state.auth.error,
+    redirect: state.auth.redirect,
+    loading: state.auth.loading,
   };
 };
 const mapDispatchToProps = (dispatch) => {

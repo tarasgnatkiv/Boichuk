@@ -1,17 +1,51 @@
 import React, { Component } from "react";
 import classes from "./NavigationItems.module.css";
 import NavigationItem from "./NavigationItem/NavigationItem";
+import { connect } from "react-redux";
 class NavigationItems extends Component {
-    render() {
-        return (
-            <nav className={this.props.clicked ? [classes.active, classes.headerMenu].join(" ") : classes.headerMenu}>
-                <ul className={classes.NavigationItems}>
-                    <NavigationItem link="/login" {...this.props}>Sign in</NavigationItem>
-                    <NavigationItem link="/auth" {...this.props}>Sign up</NavigationItem>
-                </ul>
-            </nav>
-        );
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    let links = [];
+    if (this.props.token) {
+      links = [
+        { link: "/myWorks", label: "My works" },
+        { link: "/createNewJob", label: "Create work" },
+        { link: "/about", label: "About" },
+        { link: "/logout", label: "Log out" },
+      ];
+    } else {
+      links = [
+        { link: "/login", label: "Log in" },
+        { link: "/auth", label: "Registration" },
+      ];
     }
+    let linksElements = links.map((element, id) => {
+      return (
+        <NavigationItem {...this.props} link={element.link}>
+          {element.label}
+        </NavigationItem>
+      );
+    });
+    return (
+      <nav
+        className={
+          this.props.clicked
+            ? [classes.active, classes.headerMenu].join(" ")
+            : classes.headerMenu
+        }
+      >
+        <ul className={classes.NavigationItems}>{linksElements}</ul>
+      </nav>
+    );
+  }
 }
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+    userId: state.auth.userId,
+  };
+};
 
-export default NavigationItems;
+export default connect(mapStateToProps)(NavigationItems);

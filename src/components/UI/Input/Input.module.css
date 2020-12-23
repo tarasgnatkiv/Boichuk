@@ -5,12 +5,12 @@
 }
 .Label {
     font-family: "Roboto", sans-serif;
-    font-size: 17px;
+    font-size: 25px;
     color: #1b1a1a;
     padding-bottom: 10px;
 }
 .InputElement {
-    font-size: 15px;
+    font-size: 25px;
     padding: 10px;
     border-radius: 5px;
     border: 0px;

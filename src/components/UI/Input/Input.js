@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Input.module.css";
+import classesTwo from "../../../containers/Works/CreateWork/CreateWork.module.css";
 function Input(props) {
   let inputElement = null;
   const inputClasses = [classes.InputElement];
@@ -21,9 +22,11 @@ function Input(props) {
     case "textarea": {
       inputElement = (
         <textarea
+        rows="10" cols="20"
+          id={classesTwo.style1}
           onChange={props.changed}
           className={inputClasses.join(" ")}
-          {...props.config}
+          {...props.elementConfig}
           value={props.value}
         />
       );

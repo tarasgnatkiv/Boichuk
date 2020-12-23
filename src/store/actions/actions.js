@@ -133,3 +133,152 @@ export const setRedirectPath = (path) => {
     }
   };
 };
+export const logout = () => {
+  return { type: actionTypes.LOGOUT };
+};
+//
+//
+//
+export const createWorkFail = (error) => {
+  return { type: actionTypes.CREATE_WORK_FAIL, error: error };
+};
+export const createWorkStart = () => {
+  return { type: actionTypes.CREATE_WORK_START };
+};
+export const createWorkSuccess = () => {
+  return {
+    type: actionTypes.CREATE_WORK_SUCCESS,
+  };
+};
+export const createWork = (name, description, userId, token) => {
+  return (dispatch) => {
+    dispatch(createWorkStart());
+
+    if (name.length < 1 || name.length > 50) {
+      dispatch(
+        createWorkFail("Ooops, name has to be between 1 and 20 characters!")
+      );
+    } else if (description.length < 3 || description.length > 500) {
+      dispatch(
+        createWorkFail(
+          "Ooops, description has to be between 3 and 500 characters!"
+        )
+      );
+    } else {
+      let work = {
+        name: name,
+        description: description,
+        ownerId: userId,
+        workers: [],
+      };
+
+      axios
+        .get("https://www.uuidgenerator.net/api/version1")
+        .then((response) => {
+          console.log(response);
+          work = { ...work, password: response.data };
+          return axios.post(
+            `https://strongmanagment-default-rtdb.firebaseio.com/works.json?auth=${token}`,
+            work
+          );
+        })
+        .then((response) => {
+          dispatch(createWorkSuccess());
+        })
+        .catch((error) => {
+          console.log(error);
+          if (typeof error == "string") {
+            dispatch(createWorkFail(error));
+          } else {
+            console.log(error);
+            // if error.response "ooips email already exists"
+            dispatch(createWorkFail("Ooops, some propblem exists"));
+          }
+        });
+    }
+  };
+};
+export const uploadWorksStart = () => {
+  return { type: actionTypes.UPLOAD_WORKS_START };
+};
+export const uploadWorksFail = (error) => {
+  return { type: actionTypes.UPLOAD_WORKS_FAIL, error: error };
+};
+export const uploadWorksSuccess = (works) => {
+  return {
+    type: actionTypes.UPLOAD_WORKS_SUCCESS,
+    works: works,
+  };
+};
+function getUserWorks(userId, worksObject) {
+  let worksArray = [];
+  Object.keys(worksObject).map((key) => {
+    if (worksObject[key].ownerId == userId) {
+      worksArray.push({ ...worksObject[key], id: key });
+    }
+  });
+  return worksArray;
+}
+export const uploadWorks = (userId, token) => {
+  return (dispatch) => {
+    dispatch(uploadWorksStart());
+    axios
+      .get(
+        `https://strongmanagment-default-rtdb.firebaseio.com/works.json?auth=${token}`
+      )
+      .then((response) => {
+        console.log(response.data);
+        dispatch(uploadWorksSuccess(getUserWorks(userId, response.data)));
+      })
+      .catch((error) => {
+        console.log(error);
+        if (typeof error == "string") {
+          dispatch(uploadWorksFail(error));
+        } else {
+          console.log(error);
+          // if error.response "ooips email already exists"
+          dispatch(uploadWorksFail("Ooops, some propblem exists"));
+        }
+      });
+  };
+};
+//
+//
+//
+//
+//
+
+export const removeWorkStart = () => {
+  return { type: actionTypes.REMOVE_WORK_START };
+};
+export const removeWorkFail = (error) => {
+  return { type: actionTypes.REMOVE_WORK_FAIL, error: error };
+};
+export const removeWorkSuccess = (works) => {
+  return {
+    type: actionTypes.REMOVE_WORK_SUCCESS,
+    works: works,
+  };
+};
+export const removeWork = (workId, token, prevWorks) => {
+  return (dispatch) => {
+    dispatch(removeWorkStart());
+    axios
+      .delete(
+        `https://strongmanagment-default-rtdb.firebaseio.com/works/${workId}.json?auth=${token}`
+      )
+      .then((response) => {
+        console.log(response.data);
+        let newWorks = [];
+        for (let i = 0; i < prevWorks.length; i++) {
+          if (prevWorks[i].id != workId) {
+            newWorks.push(prevWorks[i]);
+          }
+        }
+        dispatch(removeWorkSuccess(newWorks));
+      })
+      .catch((error) => {
+        dispatch(removeWorkFail(error));
+      });
+  };
+};

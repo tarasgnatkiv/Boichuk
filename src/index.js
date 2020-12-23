@@ -5,9 +5,10 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { createStore, compose, applyMiddleware } from "redux";
-import reducer from "./store/reducer";
-import thunk from 'redux-thunk';
+import { createStore, compose, applyMiddleware, combineReducers } from "redux";
+import workReducer from "./store/reducers/workReducer";
+import userReducer from "./store/reducers/userReducer";
+import thunk from "redux-thunk";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const logger = (store) => {
   return (next) => {
@@ -19,7 +20,14 @@ const logger = (store) => {
     };
   };
 };
-const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+const rootReducer = combineReducers({
+  auth: userReducer,
+  works: workReducer,
+});
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

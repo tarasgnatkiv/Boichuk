@@ -11,10 +11,10 @@ class toolbar extends React.Component {
         this.state = {
             clicked: false
         }
-        this.close = React.createRef();
+        this.myRef = React.createRef();
         this.handleClick = this.handleClick.bind(this);
     }
-
+    
     handleClick() {
         this.setState({
             clicked: !this.state.clicked
@@ -30,7 +30,7 @@ class toolbar extends React.Component {
         return (
             <header className={classes.Toolbar}>
                 <Logo />
-                <NavigationItems clicked={this.state.clicked} close={this.handleClick}/>
+                <NavigationItems myRef={this.handleClick}  clicked={this.state.clicked}/>
                 <div
                     className={this.state.clicked ? [classes.active, classes.headerBurger].join(" ") : classes.headerBurger}
                     onClick={this.handleClick}>
