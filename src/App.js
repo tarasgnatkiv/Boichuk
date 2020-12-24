@@ -7,6 +7,8 @@ import Auth from "./containers/Auth/Auth";
 import About from "./components/About/About";
 import Logout from "./containers/Logout/Logout";
 import Works from "./containers/Works/Works";
+import MyTasks from "./containers/Tasks/MyTasks";
+
 import CreateWork from "./containers/Works/CreateWork/CreateWork";
 import GetJob from "./containers/GetJob/GetJob"
 import axios from 'axios'
@@ -25,6 +27,8 @@ class App extends Component {
     if (this.props.token) {
       routes = (
         <Switch>
+           <Route path="/myTasks" component={MyTasks} />
+
            <Route path="/getJob" component={GetJob} />
           <Route path="/createNewJob" component={CreateWork} />
           <Route path="/myWorks" component={Works} />

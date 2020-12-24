@@ -16,7 +16,6 @@ class WorkComponent extends Component {
   }
 
   cancelDelete = () => {
-    console.log("pyk");
     this.setState({
       delete: !this.state.delete,
     });

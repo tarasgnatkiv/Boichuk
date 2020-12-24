@@ -24,3 +24,9 @@ export const SET_REDIRECT_WORK_PATH = "SET_REDIRECT_WORK_PATH";
 export const GET_JOB_START = "GET_JOB_START";
 export const GET_JOB_FAIL = "GET_JOB_FAIL";
 export const GET_JOB_SUCCESS = "GET_JOB_SUCCESS";
+//
+//
+//
+export const LEAVE_WORK_START = "LEAVE_WORK_START";
+export const LEAVE_WORK_FAIL = "LEAVE_WORK_FAIL";
+export const LEAVE_WORK_SUCCESS = "LEAVE_WORK_SUCCESS";

@@ -10,6 +10,7 @@ class NavigationItems extends Component {
     let links = [];
     if (this.props.token) {
       links = [
+        { link: "/myTasks", label: "My tasks" },
         { link: "/getJob", label: "Get job" },
         { link: "/myWorks", label: "My works" },
         { link: "/createNewJob", label: "Create work" },
