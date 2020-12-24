@@ -87,7 +87,23 @@ const reducer = (state = initialState, action) => {
         };
       }
     }
-    
+    //
+    //
+    //
+    case actionTypes.LEAVE_WORK_START: {
+        return {
+          ...state,
+          error: false,
+          loading: true,
+        };
+      }
+      case actionTypes.LEAVE_WORK_FAIL: {
+        return {
+          ...state,
+          error: action.error,
+          loading: false,
+        };
+      }
     default:
       return state;
   }

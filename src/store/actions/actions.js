@@ -357,9 +357,3 @@ export const leaveWorkStart = () => {
 export const leaveWorkFail = (error) => {
     return { type: actionTypes.LEAVE_WORK_FAIL, error: error };
 };
-export const leaveWorkSuccess = (works) => {
-    return {
-        type: actionTypes.LEAVE_WORK_SUCCESS,
-        works: works,
-    };
-};
