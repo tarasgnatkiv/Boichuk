@@ -52,6 +52,41 @@ const reducer = (state = initialState, action) => {
         redirectWork: "/myWorks",
       };
     }
+    case actionTypes.GET_JOB_START: {
+      return {
+        ...state,
+        error: false,
+        loading: true,
+      };
+    }
+    case actionTypes.GET_JOB_FAIL: {
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
+    }
+    case actionTypes.GET_JOB_SUCCESS: {
+      return {
+        ...state,
+        error: false,
+        loading: false,
+        redirectWork: "/about",
+      };
+    }
+    case actionTypes.SET_REDIRECT_WORK_PATH: {
+      if (action.path == "null") {
+        return {
+          ...state,
+          redirectWork: null,
+        };
+      } else {
+        return {
+          ...state,
+          redirectWork: action.path,
+        };
+      }
+    }
     default:
       return state;
   }

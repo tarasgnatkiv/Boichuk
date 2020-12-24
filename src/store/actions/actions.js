@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
+import getWorkByPassword from "../../functions/getWorkByPassword";
 export const authStart = () => {
   return { type: actionTypes.AUTH_START };
 };
@@ -281,4 +282,69 @@ export const removeWork = (workId, token, prevWorks) => {
         dispatch(removeWorkFail(error));
       });
   };
+};
+//
+//
+//
+export const getJobStart = () => {
+  return { type: actionTypes.GET_JOB_START };
+};
+export const getJobFail = (error) => {
+  return { type: actionTypes.GET_JOB_FAIL, error: error };
+};
+export const getJobSuccess = () => {
+  return {
+    type: actionTypes.GET_JOB_SUCCESS,
+  };
+};
+export const getJob = (password, userId, token) => {
+  return (dispatch) => {
+    dispatch(getJobStart());
+    if (password.length != 36) {
+      dispatch(getJobFail("Ooops,password must be 36 characters long"));
+    } else {
+      axios
+        .get(
+          `https://strongmanagment-default-rtdb.firebaseio.com/works.json?auth=${token}`
+        )
+        .then((response) => {
+          console.log(response.data);
+          let allWorks = response.data;
+          let findedWork = getWorkByPassword(allWorks, password);
+          if (findedWork.error) {
+            return Promise.reject(findedWork.error);
+          } else {
+            let findedWorkValue = findedWork.work;
+            let updatedWorkers = [];
+            console.log(findedWorkValue + "findedWork");
+
+            if (findedWorkValue.workers) {
+              console.log(findedWorkValue.workers + "findedWork.workers");
+              updatedWorkers = findedWorkValue.workers;
+              updatedWorkers.push(userId);
+            } else {
+              updatedWorkers.push(userId);
+            }
+            console.log(updatedWorkers + "updated workers");
+            let updatedWork = { ...findedWorkValue, workers: updatedWorkers };
+            console.log(findedWork.id);
+            return axios.patch(
+              `https://strongmanagment-default-rtdb.firebaseio.com/works/${findedWorkValue.id}.json?auth=${token}`,
+              updatedWork
+            );
+          }
+        })
+        .then((response) => {
+          console.log(response);
+          dispatch(getJobSuccess());
+        })
+        .catch((error) => {
+          console.log(error);
+          dispatch(getJobFail(error));
+        });
+    }
+  };
+};
+export const setRedirectWorkPath = (path) => {
+  return { type: actionTypes.SET_REDIRECT_WORK_PATH, path: path };
 };

@@ -11,6 +11,7 @@ class About extends Component {
   };
   componentDidMount() {
     this.props.setRedirectPath("null");
+    this.props.setRedirectWorkPath("null");
   }
   render() {
     return (
@@ -95,6 +96,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setRedirectPath: (path) => dispatch(actions.setRedirectPath(path)),
+    setRedirectWorkPath: (path) => dispatch(actions.setRedirectWorkPath(path)),
   };
 };
 

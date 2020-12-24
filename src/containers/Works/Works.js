@@ -3,7 +3,7 @@ import * as actions from "../../store/actions/index";
 import { connect } from "react-redux";
 import WorkComponent from "../../components/Works/WorkComponent/WorkComponent";
 import classes from "./Works.module.css";
-
+import Spinner from "../../components/UI/Spinner/Spinner";
 class MyWorks extends Component {
   state = { works: [], didComponentsLoad: false };
 
@@ -20,6 +20,10 @@ class MyWorks extends Component {
   }
 
   render() {
+    let spinner = null;
+    if (this.props.loadingWork) {
+      spinner = <Spinner />;
+    }
     let worksRender;
     if (this.state.didComponentsLoad == false) {
       worksRender = this.props.works.map((work, id) => {
@@ -49,6 +53,7 @@ class MyWorks extends Component {
 
     return (
       <React.Fragment>
+        {spinner}
         <ul className={classes.WorkList}>{worksRender}</ul>
       </React.Fragment>
     );
@@ -63,6 +68,7 @@ const mapStateToProps = (state) => {
     redirect: state.auth.redirect,
     loading: state.auth.loading,
     works: state.works.works,
+    loadingWork: state.works.loading,
   };
 };
 const mapDispatchToProps = (dispatch) => {

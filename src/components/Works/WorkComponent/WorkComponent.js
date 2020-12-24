@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import classes from "./WorkComponent.module.css";
 import "../../../../node_modules/@fortawesome/fontawesome-free/css/all.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import * as actions from "../../../store/actions/actions";
+import * as actions from "../../../store/actions/index";
 import { connect } from "react-redux";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 class WorkComponent extends Component {

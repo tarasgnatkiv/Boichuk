@@ -1,1 +1,1 @@
-export { auth,login,setRedirectPath,logout,createWork,uploadWorks } from "./actions";
+export { auth,login,setRedirectPath,setRedirectWorkPath,logout,createWork,uploadWorks,removeWork,getJob } from "./actions";
