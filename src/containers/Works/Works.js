@@ -34,6 +34,7 @@ class MyWorks extends Component {
             name={work.name}
             password={work.password}
             workId={work.id}
+            workers={work.workers ? work.workers : null}
           />
         );
       });
@@ -46,6 +47,7 @@ class MyWorks extends Component {
             name={work.name}
             password={work.password}
             workId={work.id}
+            workers={work.workers ? work.workers : null}
           />
         );
       });

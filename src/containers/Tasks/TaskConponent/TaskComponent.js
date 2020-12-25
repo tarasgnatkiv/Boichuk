@@ -23,7 +23,7 @@ class TaskComponent extends React.Component {
             <li className={classes.Work}>
                 <div className={classes.TopWorkHeader}>
                     <div className={classes.RemoveWork} onClick={this.cancelDelete}>
-                        <i class="fas fa-door-open"></i>
+                        <i className={"fas fa-door-open"}></i>
                     </div>
                     <div className={classes.Label}>{this.props.info.name}</div>
                 </div>
@@ -31,7 +31,7 @@ class TaskComponent extends React.Component {
                     {this.props.info.description}
                 </div>
                 <div className={classes.Task}>
-                    <i class="fas fa-tasks"></i>
+                    <i className={"fas fa-tasks"}></i>
                     <span>{this.props.info.number}</span>
                 </div>
                 <div
@@ -58,4 +58,5 @@ class TaskComponent extends React.Component {
 
 }
 
-export default TaskComponent;
+export default(TaskComponent)
+  

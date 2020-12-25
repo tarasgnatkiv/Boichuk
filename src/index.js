@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import workReducer from "./store/reducers/workReducer";
 import userReducer from "./store/reducers/userReducer";
+import workersReducer from "./store/reducers/workersReducer";
 import thunk from "redux-thunk";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const logger = (store) => {
@@ -23,6 +24,7 @@ const logger = (store) => {
 const rootReducer = combineReducers({
   auth: userReducer,
   works: workReducer,
+  jobWorkers: workersReducer
 });
 const store = createStore(
   rootReducer,

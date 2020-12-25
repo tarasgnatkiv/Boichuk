@@ -4,6 +4,7 @@ const initialState = {
   loading: false,
   error: false,
   redirectWork: null,
+  worksTask: [],
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -87,23 +88,31 @@ const reducer = (state = initialState, action) => {
         };
       }
     }
-    //
-    //
-    //
-    case actionTypes.LEAVE_WORK_START: {
-        return {
-          ...state,
-          error: false,
-          loading: true,
-        };
-      }
-      case actionTypes.LEAVE_WORK_FAIL: {
-        return {
-          ...state,
-          error: action.error,
-          loading: false,
-        };
-      }
+      //
+        //
+        //
+        case actionTypes.GET_WORKS_TASKS_START: {
+            return {
+                ...state,
+                error: false,
+                loading: true,
+            }
+        }
+        case actionTypes.GET_WORKS_TASKS_FAIL: {
+            return {
+                ...state,
+                error: action.error,
+                loading: false,
+            }
+        }
+        case actionTypes.GET_WORKS_TASKS_SUCCESS: {
+            return {
+                ...state,
+                error: false,
+                loading: false,
+                worksTask: action.worksTask
+            }
+        }
     default:
       return state;
   }

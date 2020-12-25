@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import classes from "./About.module.css";
 import AboutProjectImg from "./img/AboutProject.jpg";
-import developer from "./img/developer.jpg";
+import developerTaras from "./img/taras.jpg";
+import developerVlad from "./img/vlad.jpg";
 import instagram from "./img/instagram.png";
 import * as actions from "../../store/actions/index";
 class About extends Component {
@@ -58,7 +59,7 @@ class About extends Component {
         <hr />
         <div className={classes.Team}>
           <div className={classes.developer}>
-            <img src={developer} />
+            <img src={developerVlad} />
             <h2>Vlad Boichuk</h2>
             <h3>Project Manager</h3>
             <a
@@ -69,7 +70,7 @@ class About extends Component {
             </a>
           </div>
           <div className={classes.developer}>
-            <img src={developer} />
+            <img src={developerTaras} />
             <h2>Taras Hnatkiv</h2>
             <h3>Project Manager</h3>
             <a

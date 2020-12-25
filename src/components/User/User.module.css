@@ -1,34 +1,97 @@
-.Work {
+.User {
     background-color: #eeeeee;
     margin-bottom: 20px;
-    max-width: 70%;
+    max-width: 40%;
     margin-left: auto;
     margin-right: auto;
     border-radius: 5px;
     padding: 10px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     transition: 0.5s;
     border: 2px solid #646262;
 }
-.TopWorkHeader {
+.LeftPart {
+    max-width: 200px;
+}
+.RightPart {
+    margin: 0px auto;
+}
+.DeleteUser {
+    font-size: 25px;
+}
+.DeleteUser:hover {
+    cursor: pointer;
+}
+.Avatar {
+    width: 100%;
+    padding-left: 10px;
+}
+.RightPart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.TopUserHeader {
     display: flex;
 }
-.Work:hover {
+.User:hover {
     box-shadow: 0px 4px 21px 10px rgba(0, 0, 0, 0.35);
     /* transform: scale(1.1); */
 }
 .Label {
     font-family: "Dancing Script", cursive;
-    font-size: 25px;
+    font-size: 35px;
     margin: 0 auto;
-    padding: 3px;
+    padding: 10px;
+}
+.ButtonAddTask {
+    width: 100%;
+    background-color: #393737;
+    border: 0px;
+    border-radius: 5px;
+    color: #d6d6d6;
+    font-size: 25px;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+
+    font-family: "Dancing Script", cursive;
 }
 .Description {
     font-size: 20px;
     padding: 3px;
     margin: 0 auto;
     font-family: "Questrial", sans-serif;
+}
+.TaskGroup {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    font-size: 25px;
+    font-family: "Questrial", sans-serif;
+}
+.TaskGroupValue {
+    font-weight: bold;
+}
+.TaskGroup div {
+    padding-right: 10px;
+}
+.RatingGroup {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    font-size: 25px;
+    font-family: "Questrial", sans-serif;
+}
+.RatingGroupValue {
+    font-weight: bold;
+}
+.RatingGroup div {
+    padding-right: 10px;
 }
 .Password {
     margin: 0 auto;
@@ -65,26 +128,31 @@
     font-weight: bold;
     padding-left: 3px;
 }
-.Users {
+.Tasks {
     margin: 0 auto;
     display: flex;
     padding: 3px;
 }
-.Users:hover {
+.Tasks:hover {
     cursor: pointer;
 }
-.UserGroup {
+.TasksGroup {
     display: flex;
     align-items: center;
     font-size: 20px;
     padding-right: 10px;
     font-family: "Dancing Script", cursive;
 }
-.UsersGroupValue {
+.TasksGroupValue {
     font-size: 18px;
 }
+@media (max-width: 1500px) {
+    .User {
+        max-width: 50%;
+    }
+}
 @media (max-width: 1024px) {
-    .Work {
+    .User {
         background-color: #eeeeee;
         margin-bottom: 20px;
         max-width: 80%;
@@ -93,19 +161,26 @@
         border-radius: 5px;
         padding: 10px;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         transition: 0.5s;
     }
-    .Work:hover {
+    .User:hover {
         box-shadow: 0px 4px 21px 10px rgba(0, 0, 0, 0.35);
         transform: scale(1);
     }
 }
-@media (max-width: 500px) {
-    .Work {
+@media (max-width: 650px) {
+    .LeftPart {
+        max-width: 100%;
+        padding: 10px;
+    }
+    .Avatar {
+        padding-left: 0px;
+    }
+    .User {
         background-color: #eeeeee;
         margin-bottom: 20px;
-        max-width: 100%;
+        max-width: 60%;
         margin-left: auto;
         margin-right: auto;
         border-radius: 5px;
@@ -114,9 +189,32 @@
         flex-direction: column;
         transition: 0.5s;
     }
-    .Work:hover {
+    .User:hover {
         box-shadow: 0px 4px 21px 10px rgba(0, 0, 0, 0.35);
-        transform: scale(1);
+    }
+}
+@media (max-width: 500px) {
+    .LeftPart {
+        max-width: 100%;
+        padding: 10px;
+    }
+    .Avatar {
+        padding-left: 0px;
+    }
+    .User {
+        background-color: #eeeeee;
+        margin-bottom: 20px;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 5px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        transition: 0.5s;
+    }
+    .User:hover {
+        box-shadow: 0px 4px 21px 10px rgba(0, 0, 0, 0.35);
     }
 }
 

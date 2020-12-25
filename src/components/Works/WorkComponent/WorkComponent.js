@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-
 import classes from "./WorkComponent.module.css";
 import "../../../../node_modules/@fortawesome/fontawesome-free/css/all.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import * as actions from "../../../store/actions/index";
 import { connect } from "react-redux";
 import Spinner from "../../../components/UI/Spinner/Spinner";
+import { Redirect, NavLink } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+
 class WorkComponent extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +18,7 @@ class WorkComponent extends Component {
   }
 
   cancelDelete = () => {
+    console.log("pyk");
     this.setState({
       delete: !this.state.delete,
     });
@@ -23,8 +26,15 @@ class WorkComponent extends Component {
   removeWork = (workId) => {
     this.props.onRemoveWork(workId, this.props.token, this.props.works);
   };
+  redirectClick = () => {
+    this.props.history.push(`selectedWorkers?workId=${this.props.workId}`);
+  };
 
   render() {
+    let redirect = null;
+    if (this.props.redirectWork) {
+      redirect = <Redirect to={this.props.redirectWork} />;
+    }
     return (
       <li className={classes.Work}>
         <div className={classes.TopWorkHeader}>
@@ -48,26 +58,28 @@ class WorkComponent extends Component {
           </style>
           <div>password:</div>
           <div className={classes.PasswordFont}>{this.props.password}</div>
-          <CopyToClipboard onCopy={this.props.copyFunc} text="zabastovka2002">
+          <CopyToClipboard onCopy={this.props.copyFunc} text={this.props.password}>
             <div className={classes.clipBoard}>
               <i class={"far fa-copy"}></i>
             </div>
           </CopyToClipboard>
         </div>
-        <div className={classes.Users}>
+        <div onClick={this.redirectClick} className={classes.Users}>
           <div className={classes.UserGroup}>
             <i class="fa fa-users" aria-hidden="true">
               :
             </i>
-            <font className={classes.UsersGroupValue}>5</font>
+            <font className={classes.UsersGroupValue}>
+              {this.props.workers ? this.props.workers.length : 0}
+            </font>
           </div>
           <div className={classes.UserGroup}>
             <i class="fas fa-user-tie">:</i>
-            <font className={classes.UsersGroupValue}>5</font>
+            <font className={classes.UsersGroupValue}>0</font>
           </div>
           <div className={classes.UserGroup}>
             <i class="fas fa-hospital-user">:</i>
-            <font className={classes.UsersGroupValue}>5</font>
+            <font className={classes.UsersGroupValue}>0</font>
           </div>
         </div>
         <div
@@ -111,6 +123,7 @@ const mapStateToProps = (state) => {
     redirect: state.auth.redirect,
     loading: state.auth.loading,
     works: state.works.works,
+    redirectWork: state.works.redirectWork,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -118,6 +131,10 @@ const mapDispatchToProps = (dispatch) => {
     onRemoveWork: (id, token, oldWorks) =>
       dispatch(actions.removeWork(id, token, oldWorks)),
     setRedirectPath: (path) => dispatch(actions.setRedirectPath(path)),
+    setRedirectWorkPath: (path) => dispatch(actions.setRedirectWorkPath(path)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(WorkComponent);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(WorkComponent));

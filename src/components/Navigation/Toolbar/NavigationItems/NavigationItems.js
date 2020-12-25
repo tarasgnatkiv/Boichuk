@@ -16,6 +16,7 @@ class NavigationItems extends Component {
         { link: "/createNewJob", label: "Create work" },
         { link: "/about", label: "About" },
         { link: "/logout", label: "Log out" },
+        
          
         
       ];
@@ -23,6 +24,7 @@ class NavigationItems extends Component {
       links = [
         { link: "/login", label: "Log in" },
         { link: "/auth", label: "Registration" },
+        { link: "/about", label: "About" },
       ];
     }
     let linksElements = links.map((element, id) => {
