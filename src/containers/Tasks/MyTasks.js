@@ -1,50 +1,45 @@
 import React, { Component } from "react";
-import TaskComponent from './TaskConponent/TaskComponent'
+import TaskComponent from "./TaskConponent/TaskComponent";
 import * as actions from "../../store/actions/index";
 import { connect } from "react-redux";
 
-
-
 class MyTasks extends React.Component {
+  componentDidMount() {
+    this.props.getWorksTasks(this.props.userId, this.props.token);
+  }
 
-    componentDidMount() {
-        this.props.getWorksTasks(this.props.userId, this.props.token);
+  showWorks = () => {
+    let MyWorks;
+    if (this.props.worksTasks) {
+      MyWorks = this.props.worksTasks.map((i) => {
+        console.log(i);
+        return <TaskComponent info={i} key={i.id} />;
+      });
+    } else {
+      MyWorks = <div>None</div>;
     }
 
-    showWorks = () => {
-        let MyWorks
-        if (this.props.worksTasks) {
-            MyWorks = this.props.worksTasks.map(i => {
-                return  <TaskComponent info={i} key={i.id}/>
-            })
-        } else {
-            MyWorks = <div>None</div>
-        }
+    return MyWorks;
+  };
 
-        return MyWorks
-    };
-
-    render() {
-        return (
-            <>
-                {this.showWorks()}
-            </>
-        );
-    }
+  render() {
+    return <>{this.showWorks()}</>;
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-      token: state.auth.token,
-      userId: state.auth.userId,
-      error: state.auth.error,
-      loading: state.auth.loading,
-      worksTasks: state.works.worksTask
-    };
+  return {
+    token: state.auth.token,
+    userId: state.auth.userId,
+    error: state.auth.error,
+    loading: state.auth.loading,
+    worksTasks: state.works.worksTask,
   };
-  const mapDispatchToProps = (dispatch) => {
-      return {
-        getWorksTasks: (userId, token) => dispatch(actions.getWorksTasks(userId, token))
-      };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getWorksTasks: (userId, token) =>
+      dispatch(actions.getWorksTasks(userId, token)),
   };
-  export default connect(mapStateToProps, mapDispatchToProps)(MyTasks);
+};
+export default connect(mapStateToProps, mapDispatchToProps)(MyTasks);

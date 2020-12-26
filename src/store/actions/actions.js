@@ -417,7 +417,6 @@ export const uploadWorkers = (workId, userId, token) => {
 export const setEmptyWorkers = () => {
   return {
     type: actionTypes.SET_EMPTY_WORKERS,
-  
   };
 };
 
@@ -425,37 +424,84 @@ export const setEmptyWorkers = () => {
 //
 //
 export const getWorksTasksStart = () => {
-    return { type: actionTypes.GET_WORKS_TASKS_START };
+  return { type: actionTypes.GET_WORKS_TASKS_START };
 };
 export const getWorksTasksFail = (error) => {
-    return { type: actionTypes.GET_WORKS_TASKS_FAIL, error: error };
+  return { type: actionTypes.GET_WORKS_TASKS_FAIL, error: error };
 };
 export const getWorksTasksSuccess = (worksTask) => {
-    return { type: actionTypes.GET_WORKS_TASKS_SUCCESS, worksTask: worksTask };
+  return { type: actionTypes.GET_WORKS_TASKS_SUCCESS, worksTask: worksTask };
 };
 
 export const getWorksTasks = (userId, token) => {
-    return (dispatch) => {
-        dispatch(getWorksTasksStart());
-        axios
-            .get(
-                `https://strongmanagment-default-rtdb.firebaseio.com/works.json?auth=${token}`
-            )
-            .then((response) => {
-                let worksTasks = [];
-                let allWorks = response.data;
-                for(let key in allWorks) {
-                    if(allWorks[key].hasOwnProperty('workers')) {
-                        if(allWorks[key].workers.includes(userId)) {
-                            worksTasks.push(allWorks[key]);
-                        }
-                    }
-                }
-                dispatch(getWorksTasksSuccess(worksTasks));
-            })
-            .catch((error) => {
-                console.log(error);
-                dispatch(getWorksTasksFail(error));
-            });
-    };
+  return (dispatch) => {
+    dispatch(getWorksTasksStart());
+    axios
+      .get(
+        `https://strongmanagment-default-rtdb.firebaseio.com/works.json?auth=${token}`
+      )
+      .then((response) => {
+        let worksTasks = [];
+        let allWorks = response.data;
+        for (let key in allWorks) {
+          if (allWorks[key].hasOwnProperty("workers")) {
+            if (allWorks[key].workers.includes(userId)) {
+              worksTasks.push(allWorks[key]);
+            }
+          }
+        }
+        dispatch(getWorksTasksSuccess(worksTasks));
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(getWorksTasksFail(error));
+      });
+  };
+};
+//
+//
+//
+//
+//
+export const leaveWorkFail = (error) => {
+  return { type: actionTypes.LEAVE_WORK_FAIL };
+};
+export const leaveWorkStart = () => {
+  return { type: actionTypes.LEAVE_WORK_START };
+};
+export const leaveWorkSuccess = (leaveWorkedId) => {
+  return {
+    type: actionTypes.GET_WORKS_TASKS_SUCCESS,
+    leaveWorkedId: leaveWorkedId,
+  };
+};
+export const leaveWork = (workId, userId, token) => {
+  return (dispatch) => {
+    dispatch(leaveWorkStart());
+    axios
+      .get(
+        `https://strongmanagment-default-rtdb.firebaseio.com/works.json?auth=${token}`
+      )
+      .then((response) => {
+        let selectedWork = response.data[workId];
+        console.log(selectedWork);
+        let workersIdSelectedWork = selectedWork.workers;
+        console.log(workersIdSelectedWork);
+        let selfLeaveFromWork = workersIdSelectedWork.filter(
+          (workerId) => workerId != userId
+        );
+        console.log(selfLeaveFromWork);
+        let updatedWork = { ...selectedWork, workers: selfLeaveFromWork };
+        return axios.patch(
+          `https://strongmanagment-default-rtdb.firebaseio.com/works/${workId}.json?auth=${token}`,
+          updatedWork
+        );
+      })
+      .then((response) => {
+        dispatch(leaveWorkSuccess(workId));
+      })
+      .catch((err) => {
+        dispatch(leaveWorkFail(err));
+      });
+  };
 };

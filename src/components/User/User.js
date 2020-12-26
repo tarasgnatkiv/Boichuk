@@ -8,70 +8,60 @@ class User extends Component {
   render() {
     return (
       <li className={classes.User}>
-        <div className={classes.LeftPart}>
-          <div className={classes.DeleteUser}>
-            <i class="fas fa-user-minus"></i>
-          </div>
-          <img className={classes.Avatar} src={femaleUser} />
-        </div>
-        <div className={classes.RightPart}>
-          <div className={classes.TopUserHeader}>
-            <div className={classes.Label}>{this.props.userName}</div>
-          </div>
-          <div className={classes.TaskGroup}>
-            <style>
-              @import
-              url('https://fonts.googleapis.com/css2?family=Langar&family=Pacifico&family=Questrial&display=swap');
-            </style>
-            <div>Tasks:</div>
-            <div className={classes.TaskGroupValue}>
-              <i class="fas fa-tasks"></i>
+        <div className={classes.UserMainPart}>
+          <div className={classes.LeftPart}>
+            <div className={classes.DeleteUser}>
+              <i class="fas fa-user-minus"></i>
             </div>
-            <div className={classes.TaskGroupValue}>{this.props.userTasks}</div>
+            <img className={classes.Avatar} src={femaleUser} />
           </div>
-          <div className={classes.RatingGroup}>
-            <style>
-              @import
-              url('https://fonts.googleapis.com/css2?family=Langar&family=Pacifico&family=Questrial&display=swap');
-            </style>
-            <div>Rating:</div>
-            <div className={classes.RatingGroupValue}>
-              <i class="far fa-smile"></i>
+          <div className={classes.RightPart}>
+            <div className={classes.TopUserHeader}>
+              <div className={classes.Label}>{this.props.userName}</div>
             </div>
-            <div className={classes.TaskGroupValue}>{"88/100"}</div>
+            <div className={classes.TaskGroup}>
+              <style>
+                @import
+                url('https://fonts.googleapis.com/css2?family=Langar&family=Pacifico&family=Questrial&display=swap');
+              </style>
+              <div>Tasks:</div>
+              <div className={classes.TaskGroupValue}>
+                <i class="fas fa-tasks"></i>
+              </div>
+              <div className={classes.TaskGroupValue}>
+                {this.props.userTasks}
+              </div>
+            </div>
+            <div className={classes.RatingGroup}>
+              <style>
+                @import
+                url('https://fonts.googleapis.com/css2?family=Langar&family=Pacifico&family=Questrial&display=swap');
+              </style>
+              <div>Rating:</div>
+              <div className={classes.RatingGroupValue}>
+                <i class="far fa-smile"></i>
+              </div>
+              <div className={classes.TaskGroupValue}>{"88/100"}</div>
+            </div>
+            <button className={classes.ButtonAddTask}>Add task</button>
           </div>
-          <button className={classes.ButtonAddTask}>Add task</button>
         </div>
-
-        <div
-          className={
-            this.state.delete
-              ? [classes.active, classes.DeleteContainer].join(" ")
-              : classes.DeleteContainer
-          }
-        >
+        <div className={classes.BottomRemove}>
           <div className={classes.container}>
             <h1>Delete User</h1>
             <p>Are you sure you want to delete your worker?</p>
-
             <div className={classes.clearfix}>
-              <button
-                type="button"
-                onClick={this.cancelDelete}
-                className={classes.cancelbtn}
-              >
+              <button type="button" className={classes.cancelbtn}>
                 Cancel
               </button>
-              <button
-                type="button"
-                onClick={() => this.removeWork(this.props.workId)}
-                className={classes.deletebtn}
-              >
+              <button type="button" className={classes.deletebtn}>
                 Delete
               </button>
             </div>
           </div>
         </div>
+
+  
       </li>
     );
   }

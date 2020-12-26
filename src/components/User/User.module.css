@@ -7,9 +7,16 @@
     border-radius: 5px;
     padding: 10px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     transition: 0.5s;
     border: 2px solid #646262;
+}
+.BottomRemove{
+    border:2px solid black;
+}
+.UserMainPart{
+    display: flex;
+    flex-direction: row;
 }
 .LeftPart {
     max-width: 200px;
@@ -161,7 +168,7 @@
         border-radius: 5px;
         padding: 10px;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         transition: 0.5s;
     }
     .User:hover {
@@ -176,6 +183,9 @@
     }
     .Avatar {
         padding-left: 0px;
+    }
+    .UserMainPart{
+        flex-direction: column;
     }
     .User {
         background-color: #eeeeee;
