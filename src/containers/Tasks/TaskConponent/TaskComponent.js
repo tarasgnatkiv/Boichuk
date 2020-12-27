@@ -27,6 +27,7 @@ class TaskComponent extends React.Component {
   render() {
     return (
       <li className={classes.Work}>
+          <div className={classes.number}>#{this.props.index+1}</div>
         <div className={classes.TopWorkHeader}>
           <div className={classes.RemoveWork} onClick={this.cancelDelete}>
             <i className={"fas fa-door-open"}></i>

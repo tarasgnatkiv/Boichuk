@@ -3,7 +3,7 @@ import TaskComponent from "./TaskConponent/TaskComponent";
 import * as actions from "../../store/actions/index";
 import { connect } from "react-redux";
 
-class MyTasks extends React.Component {
+class MyTasks extends Component {
   componentDidMount() {
     this.props.getWorksTasks(this.props.userId, this.props.token);
   }
@@ -11,9 +11,9 @@ class MyTasks extends React.Component {
   showWorks = () => {
     let MyWorks;
     if (this.props.worksTasks) {
-      MyWorks = this.props.worksTasks.map((i) => {
-        console.log(i);
-        return <TaskComponent info={i} key={i.id} />;
+      MyWorks = this.props.worksTasks.map((i, index) => {
+        // console.log(i);
+        return <TaskComponent info={i} key={i.id} index={index}/>;
       });
     } else {
       MyWorks = <div>None</div>;

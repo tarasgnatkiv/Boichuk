@@ -14,4 +14,5 @@ export {
   leaveWork,
   addTask,
   deleteWorker,
+  getTasksNumber,
 } from "./actions";

@@ -9,7 +9,7 @@ import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import workReducer from "./store/reducers/workReducer";
 import userReducer from "./store/reducers/userReducer";
 import workerReducer from "./store/reducers/workersReducer";
-import taskReducer from "./store/reducers/workersReducer";
+import taskReducer from "./store/reducers/taskReducer";
 import thunk from "redux-thunk";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const logger = (store) => {

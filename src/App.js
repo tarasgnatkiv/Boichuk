@@ -13,6 +13,9 @@ import MyTasks from "./containers/Tasks/MyTasks";
 import SelectedWorkWorkers from "./containers/SelectedWorkWorkers/SelectedWorkWorkers";
 import axios from "axios";
 import { connect } from "react-redux";
+
+import TasksArray from "./components/TasksArray/TasksArray";
+
 class App extends Component {
     componentDidMount() {
         axios
@@ -27,6 +30,7 @@ class App extends Component {
         if (this.props.token) {
             routes = (
                 <Switch>
+                    <Route path="/tasksArray" component={TasksArray} />
                     <Route path="/myTasks" component={MyTasks} />
                     <Route path="/getJob" component={GetJob} />
                     <Route path="/createNewJob" component={CreateWork} />

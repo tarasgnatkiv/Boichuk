@@ -10,6 +10,7 @@ class NavigationItems extends Component {
     let links = [];
     if (this.props.token) {
       links = [
+        { link: "/tasksArray", label: "TasksArray" },
         { link: "/myTasks", label: "My tasks" },
         { link: "/getJob", label: "Get job" },
         { link: "/myWorks", label: "My works" },
@@ -17,11 +18,14 @@ class NavigationItems extends Component {
         { link: "/about", label: "About" },
         { link: "/logout", label: "Log out" },
         
+
+        
          
         
       ];
     } else {
       links = [
+    
         { link: "/login", label: "Log in" },
         { link: "/auth", label: "Registration" },
         { link: "/about", label: "About" },
@@ -29,7 +33,7 @@ class NavigationItems extends Component {
     }
     let linksElements = links.map((element, id) => {
       return (
-        <NavigationItem {...this.props} link={element.link}>
+        <NavigationItem {...this.props} link={element.link} key={id}>
           {element.label}
         </NavigationItem>
       );
