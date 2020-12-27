@@ -434,6 +434,7 @@ export const getWorksTasksSuccess = (worksTask) => {
 };
 
 export const getWorksTasks = (userId, token) => {
+
     return (dispatch) => {
         dispatch(getWorksTasksStart());
         axios
@@ -457,6 +458,53 @@ export const getWorksTasks = (userId, token) => {
                 dispatch(getWorksTasksFail(error));
             });
     };
+
+  return (dispatch) => {
+    dispatch(getWorksTasksStart());
+    axios
+      .get(
+        `https://strongmanagment-default-rtdb.firebaseio.com/works.json?auth=${token}`
+      )
+      .then((response) => {
+        let worksTasks = [];
+        let allWorks = response.data;
+        for (let key in allWorks) {
+          if (allWorks[key].hasOwnProperty("workers")) {
+            if (allWorks[key].workers.includes(userId)) {
+              worksTasks.push({ ...allWorks[key], tasks: [] });
+            }
+          }
+        }
+        return Promise.all([
+          axios.get(
+            `https://strongmanagment-default-rtdb.firebaseio.com/tasks.json?auth=${token}`
+          ),
+          worksTasks,
+        ]);
+      })
+      .then(([response, worksTasks]) => {
+        let allTasks = response.data;
+        console.log(allTasks);
+        for (let taskId in allTasks) {
+          if (allTasks[taskId].recipientId == userId) {
+            for (let work of worksTasks) {
+              if (work.id == allTasks[taskId].workId) {
+                work = {
+                  ...work,
+                  tasks: work.tasks.push({ ...allTasks[taskId], id: taskId }),
+                };
+              }
+            }
+          }
+        }
+        dispatch(getWorksTasksSuccess(worksTasks));
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(getWorksTasksFail(error));
+      });
+  };
+
 };
 //
 //
@@ -520,11 +568,18 @@ export const addTaskFail = (error) => {
 export const addTaskStart = () => {
     return { type: actionTypes.ADD_TASK_START };
 };
+
 export const addTaskSuccess = (tasks) => {
     return {
         type: actionTypes.ADD_TASK_SUCCESS,
         tasks: tasks,
     };
+
+export const addTaskSuccess = () => {
+  return {
+    type: actionTypes.ADD_TASK_SUCCESS,
+  };
+
 };
 export const addTask = (
     workId,
@@ -559,6 +614,51 @@ export const addTask = (
             });
     };
 };
+
+//
+//
+//
+//
+export const uploadSelectedTasksStart = () => {
+  return { type: actionTypes.UPLOAD_SELECTED_TASKS_START };
+};
+export const uploadSelectedTasksFail = (err) => {
+  return { type: actionTypes.UPLOAD_SELECTED_TASKS_FAIL, error: err };
+};
+export const uploadSelectedTasksSuccess = (tasks) => {
+  return { type: actionTypes.UPLOAD_SELECTED_TASKS_SUCCESS, tasks: tasks };
+};
+export const uploadSelectedTasks = (workId, userId, token) => {
+  return (dispatch) => {
+    dispatch(uploadSelectedTasksStart());
+    axios
+      .get(
+        `https://strongmanagment-default-rtdb.firebaseio.com/tasks.json?auth=${token}`
+      )
+      .then((response) => {
+        let allTasks = response.data;
+        let resultTasks = [];
+        for (let taskId in allTasks) {
+          if (
+            allTasks[taskId].workId == workId &&
+            allTasks[taskId].recipientId == userId
+          ) {
+            resultTasks.push({ ...allTasks[taskId], id: taskId });
+          }
+        }
+        console.log(resultTasks);
+        dispatch(uploadSelectedTasksSuccess(resultTasks));
+      })
+      .catch((err) => {
+        if (typeof err == "string") {
+          dispatch(uploadSelectedTasksFail(err));
+        } else {
+          dispatch(uploadSelectedTasksFail("Ooops, some propblem exists"));
+        }
+      });
+  };
+};
+
 export const deleteWorkerStart = () => {
     return { type: actionTypes.DELETE_WORKER_START };
 };
@@ -603,6 +703,7 @@ export const deleteWorker = (token, workId, userId) => {
             });
     };
 };
+
 //
 //
 //
@@ -641,3 +742,5 @@ export const getTasksNumber = (token, userId) => {
             });
     };
 };
+
+

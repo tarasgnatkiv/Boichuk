@@ -3,6 +3,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import classes from "./TaskComponent.module.css";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
+import { withRouter } from "react-router-dom";
 class TaskComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -23,6 +24,9 @@ class TaskComponent extends React.Component {
       this.props.token
     );
   };
+  redirectClick = () => {
+    this.props.history.push(`selectedTasks?workId=${this.props.info.id}`);
+  };
 
   render() {
     return (
@@ -41,9 +45,31 @@ class TaskComponent extends React.Component {
           </style>
           {this.props.info.description}
         </div>
-        <div className={classes.Task}>
-          <i className={"fas fa-tasks"}></i>
-          <span>{this.props.info.number}</span>
+        <div className={classes.UserGroup}>
+          <div> Workers:</div>
+          <div>
+            <i class="fa fa-users" aria-hidden="true"></i>
+          </div>
+          <div>
+            <font className={classes.UsersGroupValue}>
+              {this.props.info.workers.length
+                ? this.props.info.workers.length
+                : 0}
+            </font>
+          </div>
+        </div>
+        <div onClick={this.redirectClick} className={classes.TaskGroup}>
+          <style>
+            @import
+            url('https://fonts.googleapis.com/css2?family=Langar&family=Pacifico&family=Questrial&display=swap');
+          </style>
+          <div>Tasks:</div>
+          <div className={classes.TaskGroupValue}>
+            <i class="fas fa-tasks"></i>
+          </div>
+          <div className={classes.TaskGroupValue}>
+            {this.props.info.tasks.length}
+          </div>
         </div>
         <div
           className={
@@ -94,4 +120,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.leaveWork(workId, userId, token)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(TaskComponent);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(TaskComponent));

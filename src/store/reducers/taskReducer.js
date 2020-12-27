@@ -28,6 +28,7 @@ const reducer = (state = initialState, action) => {
         error: null,
       };
     }
+
     //
     //
     //
@@ -53,6 +54,29 @@ const reducer = (state = initialState, action) => {
           countTasks: action.countTasks,
         };
       }
+
+    case actionTypes.UPLOAD_SELECTED_TASKS_START: {
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    }
+    case actionTypes.UPLOAD_SELECTED_TASKS_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    }
+    case actionTypes.UPLOAD_SELECTED_TASKS_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        tasks: action.tasks,
+      };
+    }
+
 
     default:
       return state;
