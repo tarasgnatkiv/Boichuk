@@ -1,5 +1,3 @@
-
-
 .User {
     background-color: #eeeeee;
     margin-bottom: 20px;
@@ -17,7 +15,7 @@
     border:2px solid black;
     border-radius: 10px;
 } */
-.UserMainPart{
+.UserMainPart {
     display: flex;
     flex-direction: row;
 }
@@ -182,12 +180,11 @@
 @media (max-width: 650px) {
     .LeftPart {
         max-width: 100%;
-        padding: 10px;
     }
     .Avatar {
         padding-left: 0px;
     }
-    .UserMainPart{
+    .UserMainPart {
         flex-direction: column;
     }
     .User {
@@ -205,6 +202,9 @@
     .User:hover {
         box-shadow: 0px 4px 21px 10px rgba(0, 0, 0, 0.35);
     }
+    .addTaskContainer{
+        padding:0px;
+    }
 }
 @media (max-width: 500px) {
     .LeftPart {
@@ -217,7 +217,7 @@
     .User {
         background-color: #eeeeee;
         margin-bottom: 20px;
-max-width: 90%;
+        max-width: 90%;
         margin-left: auto;
         margin-right: auto;
         border-radius: 5px;
@@ -231,13 +231,15 @@ max-width: 90%;
     }
 }
 
-.DeleteContainer, .addTaskContainer {
+.DeleteContainer,
+.addTaskContainer {
     display: none;
     margin: 30px 0 0 0;
-    padding: 20px;
+    padding-bottom: 10px;
 }
 
-.DeleteContainer.active, .addTaskContainer.active {
+.DeleteContainer.active,
+.addTaskContainer.active {
     display: block;
     top: 0;
     left: 0;
@@ -278,7 +280,6 @@ button:hover {
     margin: 0 10px 0 0;
 }
 
-
 .cancelbtn {
     background-color: #ccc;
     color: black;
@@ -288,13 +289,14 @@ button:hover {
     background-color: #393737;
 }
 
-.container, .addTask {
-    padding: 16px;
+.container,
+.addTask {
+    padding: 0px;
     text-align: center;
     font-family: "Questrial", sans-serif;
 }
 
-.container  p {
+.container p {
     font-size: 22px;
 }
 
@@ -310,49 +312,43 @@ button:hover {
         padding: 14px 10px;
     }
 
-    .container, .addTask {
+    .container,
+    .addTask {
         padding: 0;
     }
 
     .addTaskContainer {
-        padding: 20px 0;
+        padding-bottom: 10px;
     }
 }
 
-
-.scrollbar
-{
-	margin-left: 30px;
-	float: left;
-	height: 300px;
-	width: 65px;
-	background: #F5F5F5;
-	overflow-y: scroll;
-	margin-bottom: 25px;
+.scrollbar {
+    margin-left: 30px;
+    float: left;
+    height: 300px;
+    width: 65px;
+    background: #f5f5f5;
+    overflow-y: scroll;
+    margin-bottom: 25px;
 }
 
-.forceOverflow
-{
-	min-height: 450px;
+.forceOverflow {
+    min-height: 450px;
 }
 
-
-#style1::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	border-radius: 10px;
-	background-color: #F5F5F5;
+#style1::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
 }
 
-#style1::-webkit-scrollbar
-{
-	width: 12px;
-	background-color: #F5F5F5;
+#style1::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
 }
 
-#style1::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	background-color: #555;
+#style1::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #555;
 }

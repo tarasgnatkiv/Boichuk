@@ -131,13 +131,12 @@ const reducer = (state = initialState, action) => {
       };
     }
     case actionTypes.LEAVE_WORK_SUCCESS: {
+     
       return {
         ...state,
         error: false,
         loading: false,
-        worksTask: state.worksTask.filter(
-          (workId) => workId != action.leaveWorkedId
-        ),
+        worksTask:action.newTasks,
       };
     }
     default:

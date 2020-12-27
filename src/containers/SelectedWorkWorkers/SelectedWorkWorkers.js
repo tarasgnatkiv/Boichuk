@@ -13,6 +13,7 @@ class SelectedWorkWorkers extends Component {
     const search = this.props.location.search;
     const params = new URLSearchParams(search);
     const workId = params.get("workId");
+    this.setState({ workId: workId });
     if (this.props.jobWorkers.length != 0) {
       this.props.onSetEmptyWorkers();
     }
@@ -32,10 +33,11 @@ class SelectedWorkWorkers extends Component {
     let workersToRender = this.props.jobWorkers.map((worker) => {
       return (
         <UserComponent
-          userId={worker.userId}
+          selectedUserId={worker.userId}
           userName={worker.nickname}
           userRating={"high"}
           userTasks={2}
+          workId={this.state.workId}
         />
       );
     });

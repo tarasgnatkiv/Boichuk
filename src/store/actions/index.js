@@ -11,5 +11,6 @@ export {
   uploadWorkers,
   setEmptyWorkers,
   getWorksTasks,
-  leaveWork
+  leaveWork,
+  addTask,
 } from "./actions";
