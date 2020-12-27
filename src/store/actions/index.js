@@ -13,5 +13,7 @@ export {
   getWorksTasks,
   leaveWork,
   addTask,
+  uploadSelectedTasks,
   deleteWorker,
+
 } from "./actions";
