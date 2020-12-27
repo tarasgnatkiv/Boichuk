@@ -239,7 +239,8 @@ class User extends Component {
               >
                 Cancel
               </button>
-              <button type="button" className={classes.deletebtn}>
+              <button type="button" className={classes.deletebtn}
+              onClick={() => this.props.deleteWorker(this.props.token, this.props.workId, this.props.selectedUserId)}>
                 Delete
               </button>
             </div>
@@ -289,6 +290,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    deleteWorker: (token, workId, userId) => dispatch(actions.deleteWorker(token, workId, userId)),
     onAddTask: (workId, recipientId, token, taskLabel, taskDescription) =>
       dispatch(
         actions.addTask(workId, recipientId, token, taskLabel, taskDescription)
