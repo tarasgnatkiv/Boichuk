@@ -580,6 +580,7 @@ export const addTask = (
       });
   };
 };
+
 //
 //
 //
@@ -623,3 +624,49 @@ export const uploadSelectedTasks = (workId, userId, token) => {
       });
   };
 };
+=======
+export const deleteWorkerStart = () => {
+    return { type: actionTypes.DELETE_WORKER_START };
+};
+export const deleteWorkerFail = (error) => {
+    return { type: actionTypes.DELETE_WORKER_FAIL, error: error };
+};
+export const deleteWorkerSuccess = (currentWorkers) => {
+    return { type: actionTypes.DELETE_WORKER_SUCCESS, currentWorkers: currentWorkers };
+};
+
+export const deleteWorker = (token, workId, userId) => {
+    return (dispatch) => {
+        dispatch(deleteWorkerStart());
+        axios
+            .get(
+                // `https://strongmanagment-default-rtdb.firebaseio.com/works.json?auth=${token}`
+                `https://strongmanagment-default-rtdb.firebaseio.com/works/${workId}.json?auth=${token}`,
+
+            )
+            .then((response) => {
+                console.log(token)
+                console.log(workId)
+                console.log(userId)
+
+                let currentWorkers = response.data.workers;
+                let indexUserId = currentWorkers.indexOf(userId)
+                if (indexUserId > -1) {
+                    currentWorkers.splice(indexUserId, 1);
+                  }
+                console.log(currentWorkers)
+                return axios.patch(
+                    `https://strongmanagment-default-rtdb.firebaseio.com/works/${workId}.json?auth=${token}`, response.data)
+                    .then((response) => {
+                        dispatch(deleteWorkerSuccess(currentWorkers));
+                    })
+
+
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch(deleteWorkerFail(error));
+            });
+    };
+};
+
