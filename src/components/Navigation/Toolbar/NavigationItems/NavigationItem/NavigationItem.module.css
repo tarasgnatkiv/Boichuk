@@ -14,6 +14,7 @@
     font-size: 20px;
     font-family: 'Varela Round', sans-serif;
     width: 100%;
+    position: relative;
 }
 
 .NavigationItem a:hover,
@@ -23,4 +24,36 @@
     background-color: #DFDFDF;
 
     
+}
+
+.number {
+    padding: 1px 0 0 0;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 2px;
+    right: 0px;
+    background-color: #fb3f4c;
+    border-radius: 50%;
+    color: white;
+    font-size: 16px;
+    opacity: 0.7;
+}
+
+@media(max-width: 1024px) {
+    .number {
+        right: 40%;
+    }
+}
+
+@media(max-width: 680px) {
+    .number {
+        right: 35%;
+    }
+}
+
+@media(max-width: 400px) {
+    .number {
+        right: 30%;
+    }
 }

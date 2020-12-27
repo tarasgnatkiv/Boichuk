@@ -19,11 +19,11 @@ class toolbar extends React.Component {
         this.setState({
             clicked: !this.state.clicked
         })
-        if (!this.state.clicked) {
-            document.body.classList.add('lock');
-        } else {
-            document.body.classList.remove('lock');
-        }
+        // if (!this.state.clicked) {
+        //     document.body.classList.add('lock');
+        // } else {
+        //     document.body.classList.remove('lock');
+        // }
     }
 
     render() {

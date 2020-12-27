@@ -15,5 +15,6 @@ export {
   addTask,
   uploadSelectedTasks,
   deleteWorker,
+  getTasksNumber,
 
 } from "./actions";

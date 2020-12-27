@@ -31,12 +31,15 @@ class WorkComponent extends Component {
   };
 
   render() {
+    console.log(this.props);
+
     let redirect = null;
     if (this.props.redirectWork) {
       redirect = <Redirect to={this.props.redirectWork} />;
     }
     return (
       <li className={classes.Work}>
+          <div className={classes.number}>#{this.props.index+1}</div>
         <div className={classes.TopWorkHeader}>
           <div className={classes.RemoveWork} onClick={this.cancelDelete}>
             <i class="fas fa-trash-alt"></i>

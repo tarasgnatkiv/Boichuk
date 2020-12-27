@@ -10,7 +10,21 @@
     flex-direction: column;
     transition: 0.5s;
     border: 2px solid #646262;
+    position: relative;
 }
+
+
+.number {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.confirm{
+    font-size:20px;
+
 .confirm {
     font-size: 20px;
 }
@@ -47,6 +61,7 @@
 }
 .TaskGroup div {
     padding-right: 10px;
+
 }
 .TopWorkHeader {
     display: flex;
@@ -91,6 +106,9 @@
     transition: 0.5s;
     justify-self: flex-end;
     font-size: 20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 .RemoveWork:hover {
     transform: scale(1.1);
@@ -170,7 +188,7 @@
     font-family: "Questrial", sans-serif;
 }
 
-button {
+.clearfix button {
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -182,7 +200,7 @@ button {
     border-radius: 10px;
 }
 
-button:hover {
+.clearfix button:hover {
     opacity: 1;
 }
 

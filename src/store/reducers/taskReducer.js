@@ -3,6 +3,7 @@ const initialState = {
   tasks: [],
   loading: false,
   error: null,
+  countTasks: 0
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -27,6 +28,33 @@ const reducer = (state = initialState, action) => {
         error: null,
       };
     }
+
+    //
+    //
+    //
+    case actionTypes.GET_TASKS_NUMBER_START: {
+        return {
+          ...state,
+          error: false,
+          loading: true,
+        };
+      }
+      case actionTypes.GET_TASKS_NUMBER_FAIL: {
+        return {
+          ...state,
+          error: action.error,
+          loading: false,
+        };
+      }
+      case actionTypes.GET_TASKS_NUMBER_SUCCESS: {
+        return {
+          ...state,
+          error: false,
+          loading: false,
+          countTasks: action.countTasks,
+        };
+      }
+
     case actionTypes.UPLOAD_SELECTED_TASKS_START: {
       return {
         ...state,
@@ -48,6 +76,7 @@ const reducer = (state = initialState, action) => {
         tasks: action.tasks,
       };
     }
+
 
     default:
       return state;
