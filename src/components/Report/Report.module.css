@@ -72,12 +72,14 @@
 @media (max-width: 900px) {
     .taskItem {
         max-width: 450px;
-        margin: 20px 0;
         display: block;
     }
 }
 
 @media (max-width: 500px) {
+    .taskItem{
+        margin:20px 0;
+    }
     .taskItem p {
         font-size: 18px;
         line-height: 24px;

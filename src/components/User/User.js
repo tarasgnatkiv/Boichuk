@@ -119,6 +119,7 @@ class User extends Component {
   startCreatingTask = () => {
     this.addTaskFunc();
     this.props.onAddTask(
+      this.props.userId,
       this.props.workId,
       this.props.selectedUserId,
       this.props.token,
@@ -239,8 +240,17 @@ class User extends Component {
               >
                 Cancel
               </button>
-              <button type="button" className={classes.deletebtn}
-              onClick={() => this.props.deleteWorker(this.props.token, this.props.workId, this.props.selectedUserId)}>
+              <button
+                type="button"
+                className={classes.deletebtn}
+                onClick={() =>
+                  this.props.deleteWorker(
+                    this.props.token,
+                    this.props.workId,
+                    this.props.selectedUserId
+                  )
+                }
+              >
                 Delete
               </button>
             </div>
@@ -290,10 +300,25 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteWorker: (token, workId, userId) => dispatch(actions.deleteWorker(token, workId, userId)),
-    onAddTask: (workId, recipientId, token, taskLabel, taskDescription) =>
+    deleteWorker: (token, workId, userId) =>
+      dispatch(actions.deleteWorker(token, workId, userId)),
+    onAddTask: (
+      ownerId,
+      workId,
+      recipientId,
+      token,
+      taskLabel,
+      taskDescription
+    ) =>
       dispatch(
-        actions.addTask(workId, recipientId, token, taskLabel, taskDescription)
+        actions.addTask(
+          ownerId,
+          workId,
+          recipientId,
+          token,
+          taskLabel,
+          taskDescription
+        )
       ),
   };
 };

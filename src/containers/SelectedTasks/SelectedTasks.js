@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
-
+import classes from "./SelectedTasks.module.css";
+import TaskComponent from "../../components/Task/Task";
 class SelectedTasks extends Component {
   componentDidMount() {
     const search = this.props.location.search;
@@ -14,7 +15,17 @@ class SelectedTasks extends Component {
     );
   }
   render() {
-    return <div>LOLOLOL</div>;
+    let tasks = null;
+    tasks = this.props.tasks.map((task, index) => (
+      <TaskComponent
+        index={index}
+        taskId={task.id}
+        ownerId={task.ownerId}
+        name={task.name}
+        description={task.description}
+      />
+    ));
+    return <div className={classes.TasksArrayContainer}>{tasks}</div>;
   }
 }
 const mapStateToProps = (state) => {
@@ -32,7 +43,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SelectedTasks);
+export default connect(mapStateToProps, mapDispatchToProps)(SelectedTasks);

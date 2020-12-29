@@ -551,6 +551,7 @@ export const addTaskSuccess = (tasks) => {
 };
 
 export const addTask = (
+  userId,
   workId,
   recipientId,
   token,
@@ -567,6 +568,7 @@ export const addTask = (
           workId: workId,
           recipientId: recipientId,
           name: taskLabel,
+          ownerId: userId,
           description: taskDescription,
         }
       )
@@ -714,6 +716,104 @@ export const getTasksNumber = (token, userId) => {
       .catch((error) => {
         console.log(error);
         dispatch(getTasksNumberFail(error));
+      });
+  };
+};
+//
+//
+//
+//
+
+export const sendArticleStart = () => {
+  return { type: actionTypes.SEND_ARTICLE_START };
+};
+export const sendArticleFail = (error) => {
+  return { type: actionTypes.SEND_ARTICLE_FAIL, error: error };
+};
+export const sendArticleSuccess = (taskId) => {
+  return {
+    type: actionTypes.SEND_ARTICLE_SUCCESS,
+    taskId: taskId,
+  };
+};
+
+export const sendArticle = (
+  token,
+  taskId,
+  googleLink,
+  name,
+  description,
+  ownerId
+) => {
+  return (dispatch) => {
+    dispatch(sendArticleStart());
+    axios
+      .delete(
+        `https://strongmanagment-default-rtdb.firebaseio.com/tasks/${taskId}.json?auth=${token}`
+      )
+      .then((response) => {
+        return axios.post(
+          `https://strongmanagment-default-rtdb.firebaseio.com/reports.json?auth=${token}`,
+          {
+            name: name,
+            description: description,
+            answer: googleLink,
+            ownerId: ownerId,
+          }
+        );
+      })
+      .then((response) => {
+        dispatch(sendArticleSuccess(taskId));
+      })
+      .catch((error) => {
+        console.log(error);
+        if (typeof error == "string") dispatch(sendArticleFail(error));
+        else {
+          dispatch(sendArticleFail("Something went wrong"));
+        }
+      });
+  };
+};
+//
+//
+//
+//
+export const uploadReportsStart = () => {
+  return { type: actionTypes.UPLOAD_ARTICLE_START };
+};
+export const uploadReportsFail = (error) => {
+  return { type: actionTypes.UPLOAD_ARTICLE_FAIL, error: error };
+};
+export const uploadReportsSuccess = (reports) => {
+  return {
+    type: actionTypes.UPLOAD_ARTICLE_SUCCESS,
+    reports: reports,
+  };
+};
+
+export const uploadReports = (ownerId, token) => {
+  return (dispatch) => {
+    dispatch(uploadReportsStart());
+    axios
+      .get(
+        `https://strongmanagment-default-rtdb.firebaseio.com/reports.json?auth=${token}`
+      )
+      .then((response) => {
+        let reportsObject = response.data;
+        let reportsArray = [];
+        Object.keys(reportsObject).map((key) => {
+          if (reportsObject[key].ownerId == ownerId) {
+            reportsArray.push({ ...reportsObject[key], id: key });
+          }
+        });
+        dispatch(uploadReportsSuccess(reportsArray));
+      })
+      .catch((error) => {
+        console.log(error);
+        if (typeof error == "string") dispatch(uploadReportsFail(error));
+        else {
+          dispatch(uploadReportsFail("Something went wrong"));
+        }
       });
   };
 };

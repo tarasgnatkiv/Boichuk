@@ -10,6 +10,7 @@ import workReducer from "./store/reducers/workReducer";
 import userReducer from "./store/reducers/userReducer";
 import workerReducer from "./store/reducers/workersReducer";
 import taskReducer from "./store/reducers/taskReducer";
+import reportReducer from "./store/reducers/reportReducer";
 import thunk from "redux-thunk";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const logger = (store) => {
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   works: workReducer,
   jobWorkers: workerReducer,
   tasks: taskReducer,
+  reports:reportReducer
 });
 const store = createStore(
   rootReducer,
